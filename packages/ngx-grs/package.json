@@ -1,6 +1,6 @@
 {
 	"name": "ngx-grs",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Generic REST service for Angular",
 	"author": "jm2097",
 	"publishConfig": {
