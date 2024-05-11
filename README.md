@@ -1,8 +1,8 @@
 # ngx-grs
 
 [![NPM downloads](https://img.shields.io/npm/dt/ngx-grs.svg?style=flat-square)](https://www.npmjs.com/package/ngx-grs)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/juanmesa2097/ngx-grs/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/juanmesa2097/ngx-grs/blob/main/CONTRIBUTING.md)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/juanmesa2097/ngx-grs/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/juanmesa2097/ngx-grs/blob/master/CONTRIBUTING.md)
 
 ## Installation
 
