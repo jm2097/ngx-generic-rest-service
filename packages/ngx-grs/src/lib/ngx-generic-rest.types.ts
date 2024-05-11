@@ -21,7 +21,7 @@ type _httpParams = HttpParams | { [param: string]: string | string[] };
 type _observe = 'body' | 'events' | 'response';
 type _responseType = 'arraybuffer' | 'blob' | 'json' | 'text';
 
-export type HttpOptions<T = Record<string, unknown>> = HttpRequestOptions & {
+export type HttpOptions<T = any> = HttpRequestOptions & {
 	urlRewrite?: string;
 	urlPostfix?: string;
 	mapFn?: (res: any) => T;

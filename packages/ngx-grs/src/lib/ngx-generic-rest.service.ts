@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { type Observable, throwError } from 'rxjs';
+import { throwError, type Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import type {
 	HttpAddOptions,
@@ -109,6 +109,6 @@ export class NgxGenericRestService {
 	}
 
 	protected handleError(error: any): Observable<never> {
-		return throwError(error.message || error);
+		return throwError(() => error.message || error);
 	}
 }
