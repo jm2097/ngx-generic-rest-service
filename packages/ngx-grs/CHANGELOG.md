@@ -1,5 +1,12 @@
 # ngx-grs
 
+## 0.1.4
+
+### Patch Changes
+
+- 0a49c41: Try to fix publish directory
+- 0a49c41: Try to fix publish directory
+
 ## 0.1.3
 
 ### Patch Changes
