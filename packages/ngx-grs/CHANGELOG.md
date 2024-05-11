@@ -1,5 +1,11 @@
 # ngx-grs
 
+## 0.1.5
+
+### Patch Changes
+
+- 6fc9eb4: Expose optional type for API response
+
 ## 0.1.4
 
 ### Patch Changes
