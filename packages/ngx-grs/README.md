@@ -8,43 +8,105 @@
 
 ```consola
 npm install ngx-grs
-```
 
 or
 
-```consola
+pnpm add ngx-grs
+
+or 
+
 yarn add ngx-grs
+
+or 
+
+bun add ngx-grs
 ```
 
 ## Usage
 
-1. Create Angular service (e.g., tasksService):
-
-   ```consola
-   ng generate service tasks
-   ```
-
-2. Extend Angular service from `NgxGenericRestService`:
+1. Create an Angular service and extend it with the `NgxGenericRestService` class:
 
    ```ts
    @Injectable({ providedIn: "root" })
-   export class TasksService extends NgxGenericRestService {}
+   export class PlanetsService extends NgxGenericRestService {}
    ```
 
-3. Call the constructor of the `NgxGenericRestService` class and provide the `baseUrl` and `resourceName`:
+2. Call the constructor of the `NgxGenericRestService` class and provide the `baseUrl` and `resourceName`:
 
    ```ts
    @Injectable({ providedIn: "root" })
-   export class TasksService extends NgxGenericRestService {
-     constructor() {
-       super({
-         baseUrl: "https://example.com/api", // environment.apiUrl
-         resourceName: "tasks", // API controller
-       });
-       // endpoint: https://example.com/api/tasks
-     }
+   export class PlanetsService extends NgxGenericRestService {
+      constructor() {
+        super({
+          baseUrl: "https://dragonball-api.com/api"
+          resourceName: "planets",
+        });       
+      }
    }
    ```
+
+3. Use the service
+
+  ```ts
+  type ApiResponse<T> =
+  | {
+      items: T[];
+      links: {
+        first: string;
+        last: string;
+        next: string;
+        previous: string;
+      };
+      meta: {
+        currentPage: number;
+        itemCount: number;
+        itemsPerPage: number;
+        totalItems: number;
+        totalPages: number;
+      };
+    }
+  | undefined;
+
+  type Planet = {
+    id: number;
+    name: string;
+    isDestroyed: boolean;
+    description: string;
+    image: string;
+    deletedAt: Date | null;
+  };
+
+  type PlanetCreate = Pick<Planet, 'name' | 'isDestroyed' | 'description' | 'image'>;
+
+  type PlanetUpdate = Partial<PlanetCreate>;
+
+  @Component({
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+  })
+  export class SomeComponent implements OnInit {
+    #planetsService = inject(PlanetsService);
+
+    planets = signal<ApiResponse<Planet>>(undefined);
+
+    ngOnInit(): void {
+      this.#planetsService.list<ApiResponse<Planet>>().subscribe(this.planets.set);
+    }
+
+    create(planet: PlanetCreate): void {
+      this.#planetsService.add<PlanetCreate, Planet>().subscribe();
+    }
+
+    update(id: number, planet: PlanetUpdate): void {      
+      this.#planetsService.update<PlanetUpdate, Planet>(id, planet).subscribe();
+    }
+
+    delete(id: number): void {
+      this.#planetsService.delete<Planet>(id).subscribe();
+    }
+  }
+  ```
 
 ## Default HttpClient request options
 

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { throwError, type Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import type { Observable } from 'rxjs';
 import type {
 	HttpAddOptions,
 	HttpConfig,
@@ -38,14 +37,12 @@ export class NgxGenericRestService {
 	 * @param options custom specific HTTP options for GET list requests
 	 * @returns generic type | list of objects
 	 */
-	list<T>(options?: HttpGetListOptions): Observable<T> {
+	list<ResponseType>(options?: HttpGetListOptions): Observable<ResponseType> {
 		const method: HttpMethod = 'GET';
 		const url = resolveUrl(this.url, options);
 		const requestOptions = extractRequestOptions(options);
 
-		return this.#httpClient
-			.request<T>(method, url, requestOptions)
-			.pipe(mapResponse(options), catchError(this.handleError));
+		return this.#httpClient.request<ResponseType>(method, url, requestOptions).pipe(mapResponse(options));
 	}
 
 	/**
@@ -53,14 +50,12 @@ export class NgxGenericRestService {
 	 * @param options custom specific HTTP options for GET single requests
 	 * @returns generic type | single object
 	 */
-	single<T>(id: string | number, options?: HttpGetSingleOptions): Observable<T> {
+	single<ResponseType>(id: string | number, options?: HttpGetSingleOptions): Observable<ResponseType> {
 		const method: HttpMethod = 'GET';
 		const url = resolveUrl(this.url, options, id.toString());
 		const requestOptions = extractRequestOptions(options);
 
-		return this.#httpClient
-			.request<T>(method, url, requestOptions)
-			.pipe(mapResponse(options), catchError(this.handleError));
+		return this.#httpClient.request<ResponseType>(method, url, requestOptions).pipe(mapResponse(options));
 	}
 
 	/**
@@ -68,14 +63,12 @@ export class NgxGenericRestService {
 	 * @param options custom specific HTTP options for Add requests
 	 * @returns generic type | single object or list of objects
 	 */
-	add<T>(body: T, options?: HttpAddOptions): Observable<T> {
+	add<BodyType, ResponseType = BodyType>(body: BodyType, options?: HttpAddOptions): Observable<ResponseType> {
 		const method: HttpMethod = 'POST';
 		const url = resolveUrl(this.url, options);
 		const requestOptions = { ...extractRequestOptions(options), body };
 
-		return this.#httpClient
-			.request<T>(method, url, requestOptions)
-			.pipe(mapResponse(options), catchError(this.handleError));
+		return this.#httpClient.request<ResponseType>(method, url, requestOptions).pipe(mapResponse(options));
 	}
 
 	/**
@@ -83,14 +76,16 @@ export class NgxGenericRestService {
 	 * @param options custom specific HTTP options for Update requests
 	 * @returns generic type | single object or list of objects
 	 */
-	update<T>(id: string | number, body: T, options?: HttpUpdateOptions): Observable<T> {
+	update<BodyType, ResponseType = BodyType>(
+		id: string | number,
+		body: BodyType,
+		options?: HttpUpdateOptions,
+	): Observable<ResponseType> {
 		const method: HttpMethod = options?.method || 'PUT';
 		const url = resolveUrl(this.url, options, id.toString());
 		const requestOptions = { ...extractRequestOptions(options), body };
 
-		return this.#httpClient
-			.request<T>(method, url, requestOptions)
-			.pipe(mapResponse(options), catchError(this.handleError));
+		return this.#httpClient.request<ResponseType>(method, url, requestOptions).pipe(mapResponse(options));
 	}
 
 	/**
@@ -98,17 +93,11 @@ export class NgxGenericRestService {
 	 * @param options custom specific HTTP options for Delete requests
 	 * @returns generic type | single object or list of objects
 	 */
-	delete<T>(id: string | number, options?: HttpDeleteOptions): Observable<T> {
+	delete<ResponseType>(id: string | number, options?: HttpDeleteOptions): Observable<ResponseType> {
 		const method: HttpMethod = 'DELETE';
 		const url = resolveUrl(this.url, options, id.toString());
 		const requestOptions = extractRequestOptions(options);
 
-		return this.#httpClient
-			.request<T>(method, url, requestOptions)
-			.pipe(mapResponse(options), catchError(this.handleError));
-	}
-
-	protected handleError(error: any): Observable<never> {
-		return throwError(() => error.message || error);
+		return this.#httpClient.request<ResponseType>(method, url, requestOptions).pipe(mapResponse(options));
 	}
 }

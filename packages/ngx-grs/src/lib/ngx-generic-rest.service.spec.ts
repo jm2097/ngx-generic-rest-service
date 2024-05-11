@@ -1,8 +1,8 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { extractRequestOptions } from './ngx-generic-rest.utils';
-import { type TestEntity, TestService } from './test-setup';
+import { TestService, type TestApiResponse, type TestEntity } from './test-setup';
 
 describe('NgxGenericRestService', () => {
 	describe('config', () => {
@@ -413,6 +413,24 @@ describe('NgxGenericRestService', () => {
 				request.flush([]);
 			},
 		));
+
+		it('should return a different result from the request body', inject(
+			[TestService, HttpTestingController],
+			(testService: TestService, httpMock: HttpTestingController) => {
+				const dummyBody: TestEntity = { foo: 'foo', bar: 999 };
+				const dummyResponse: TestApiResponse<TestEntity> = {
+					items: [{ id: 1, foo: 'foo', bar: 999 }],
+					total: 1,
+				};
+
+				testService.add<TestEntity, TestApiResponse<TestEntity>>(dummyBody).subscribe((result) => {
+					expect(result).toBe(dummyResponse);
+				});
+
+				const request = httpMock.expectOne(testService.url);
+				request.flush(dummyResponse);
+			},
+		));
 	});
 
 	describe('update', () => {
@@ -528,6 +546,27 @@ describe('NgxGenericRestService', () => {
 				expect(request.request.params.get('foo')).toEqual('foo');
 				expect(request.request.params.get('bar')).toEqual('bar');
 				request.flush([]);
+			},
+		));
+
+		it('should return a different result from the request body', inject(
+			[TestService, HttpTestingController],
+			(testService: TestService, httpMock: HttpTestingController) => {
+				const dummyId = 1;
+				const dummyEntity: TestEntity = { foo: 'new' };
+				const dummyResponse: TestApiResponse<TestEntity> = {
+					items: [{ id: 1, foo: 'new' }],
+					total: 1,
+				};
+
+				testService
+					.update<TestEntity, TestApiResponse<TestEntity>>(dummyId, dummyEntity)
+					.subscribe((result) => {
+						expect(result).toBe(dummyResponse);
+					});
+
+				const request = httpMock.expectOne((req) => req.url === `${testService.url}/${dummyId}`);
+				request.flush(dummyResponse);
 			},
 		));
 	});
