@@ -1,33 +1,27 @@
 {
-  "name": "ngx-grs",
-  "version": "0.1.1",
-  "description": "Generic REST service for Angular",
-  "author": "jm2097",
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/juanmesa2097/ngx-generic-rest-service.git"
-  },
-  "bugs": {
-    "url": "https://github.com/juanmesa2097/ngx-generic-rest-service/issues"
-  },
-  "homepage": "https://github.com/juanmesa2097/ngx-generic-rest-service",
-  "keywords": [
-    "angular",    
-    "service",
-    "restful",
-    "rest",
-    "api"
-  ],
-  "license": "MIT",
-  "peerDependencies": {
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "sideEffects": false
+	"name": "ngx-grs",
+	"version": "0.1.1",
+	"description": "Generic REST service for Angular",
+	"author": "jm2097",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/juanmesa2097/ngx-generic-rest-service.git"
+	},
+	"bugs": {
+		"url": "https://github.com/juanmesa2097/ngx-generic-rest-service/issues"
+	},
+	"homepage": "https://github.com/juanmesa2097/ngx-generic-rest-service",
+	"keywords": ["angular", "service", "restful", "rest", "api"],
+	"license": "MIT",
+	"peerDependencies": {
+		"@angular/common": "^17.3.0",
+		"@angular/core": "^17.3.0"
+	},
+	"dependencies": {
+		"tslib": "^2.3.0"
+	},
+	"sideEffects": false
 }

@@ -1,5 +1,5 @@
 {
-	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",	
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -12,7 +12,11 @@
 				"useFilenamingConvention": "off",
 				"noDefaultExport": "off",
 				"useNamingConvention": "off",
-				"noNamespaceImport": "off"
+				"noNamespaceImport": "off",
+				"noParameterProperties": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off"
 			},
 			"performance": {
 				"noBarrelFile": "off",
@@ -35,5 +39,17 @@
 		"formatter": {
 			"quoteStyle": "single"
 		}
-	}	
+	},
+	"overrides": [
+		{
+			"include": ["*.spec.ts"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUndeclaredVariables": "off"
+					}
+				}
+			}
+		}
+	]
 }

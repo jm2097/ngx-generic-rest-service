@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { HttpOptions } from './ngx-generic-rest.types';
+import type { HttpOptions } from './ngx-generic-rest.types';
 
 /**
  * Dynamically resolves API URL
@@ -8,28 +8,24 @@ import { HttpOptions } from './ngx-generic-rest.types';
  * @param args extra arguments that are concatenated to URL before postfix.
  * @returns API endpoint
  */
-export const resolveUrl = (
-  baseUrl: string,
-  options?: HttpOptions,
-  ...args: string[]
-): string => {
-  const { urlRewrite, urlPostfix } = options || {};
+export const resolveUrl = (baseUrl: string, options?: HttpOptions, ...args: string[]): string => {
+	const { urlRewrite, urlPostfix } = options || {};
 
-  if (urlRewrite) {
-    return urlRewrite;
-  }
+	if (urlRewrite) {
+		return urlRewrite;
+	}
 
-  let result = baseUrl;
+	let result = baseUrl;
 
-  if (args && args.length > 0) {
-    result += `/${args.join('/')}`;
-  }
+	if (args && args.length > 0) {
+		result += `/${args.join('/')}`;
+	}
 
-  if (urlPostfix) {
-    result += `/${urlPostfix}`;
-  }
+	if (urlPostfix) {
+		result += `/${urlPostfix}`;
+	}
 
-  return result;
+	return result;
 };
 
 /**
@@ -38,26 +34,22 @@ export const resolveUrl = (
  * @returns object with 0 or n request parameters
  */
 export const extractRequestOptions = (options?: any) => {
-  if (!options || typeof options !== 'object') {
-    return {};
-  }
+	if (!options || typeof options !== 'object') {
+		return {};
+	}
 
-  return [
-    'headers',
-    'params',
-    'observe',
-    'reportProgress',
-    'responseType',
-    'withCredentials',
-  ].reduce((requestOptions: any, key) => {
-    const value = options[key];
+	return ['headers', 'params', 'observe', 'reportProgress', 'responseType', 'withCredentials'].reduce(
+		(requestOptions: any, key) => {
+			const value = options[key];
 
-    if (value !== undefined) {
-      requestOptions[key] = value;
-    }
+			if (value !== undefined) {
+				requestOptions[key] = value;
+			}
 
-    return requestOptions;
-  }, {});
+			return requestOptions;
+		},
+		{},
+	);
 };
 
 /**
@@ -65,5 +57,4 @@ export const extractRequestOptions = (options?: any) => {
  * @param options HTTP base config options
  * @returns any result that is specified
  */
-export const mapResponse = <T>(options?: HttpOptions) =>
-  map((res: T) => (options?.mapFn ? options.mapFn(res) : res));
+export const mapResponse = <T>(options?: HttpOptions) => map((res: T) => (options?.mapFn ? options.mapFn(res) : res));
