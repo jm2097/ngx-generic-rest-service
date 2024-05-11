@@ -2,8 +2,6 @@
 
 ![NPM Version](https://img.shields.io/npm/v/ngx-grs)
 [![NPM downloads](https://img.shields.io/npm/dt/ngx-grs.svg?style=flat-square)](https://www.npmjs.com/package/ngx-grs)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/juanmesa2097/ngx-grs/blob/master/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/juanmesa2097/ngx-grs/blob/master/CONTRIBUTING.md)
 
 ## Installation
 
@@ -14,11 +12,11 @@ or
 
 pnpm add ngx-grs
 
-or 
+or
 
 yarn add ngx-grs
 
-or 
+or
 
 bun add ngx-grs
 ```
@@ -41,73 +39,80 @@ bun add ngx-grs
         super({
           baseUrl: "https://dragonball-api.com/api"
           resourceName: "planets",
-        });       
+        });
       }
    }
    ```
 
 3. Use the service somewhere in your code:
 
-    ```ts
-    type ApiResponse<T> =
-    | {
-        items: T[];
-        links: {
-          first: string;
-          last: string;
-          next: string;
-          previous: string;
-        };
-        meta: {
-          currentPage: number;
-          itemCount: number;
-          itemsPerPage: number;
-          totalItems: number;
-          totalPages: number;
-        };
-      }
-    | undefined;
+   ```ts
+   type ApiResponse<T> =
+     | {
+         items: T[];
+         links: {
+           first: string;
+           last: string;
+           next: string;
+           previous: string;
+         };
+         meta: {
+           currentPage: number;
+           itemCount: number;
+           itemsPerPage: number;
+           totalItems: number;
+           totalPages: number;
+         };
+       }
+     | undefined;
 
-    type Planet = {
-      id: number;
-      name: string;
-      isDestroyed: boolean;
-      description: string;
-      image: string;
-      deletedAt: Date | null;
-    };
+   type Planet = {
+     id: number;
+     name: string;
+     isDestroyed: boolean;
+     description: string;
+     image: string;
+     deletedAt: Date | null;
+   };
 
-    type PlanetCreate = Pick<Planet, 'name' | 'isDestroyed' | 'description' | 'image'>;
+   type PlanetCreate = Pick<
+     Planet,
+     "name" | "isDestroyed" | "description" | "image"
+   >;
 
-    type PlanetUpdate = Partial<PlanetCreate>;
+   type PlanetUpdate = Partial<PlanetCreate>;
 
-    @Component({
-      selector: 'app-root',
-      standalone: true,
-      templateUrl: './app.component.html',
-    })
-    export class SomeComponent implements OnInit {
-      #planetsService = inject(PlanetsService);
+   @Component({
+     selector: "app-root",
+     standalone: true,
+     templateUrl: "./app.component.html",
+   })
+   export class SomeComponent implements OnInit {
+     #planetsService = inject(PlanetsService);
 
-      planets = signal<ApiResponse<Planet>>(undefined);
+     planets = signal<ApiResponse<Planet>>(undefined);
 
-      ngOnInit(): void {
-        this.#planetsService.list<ApiResponse<Planet>>().subscribe(this.planets.set);
-      }
+     ngOnInit(): void {
+       this.#planetsService
+         .list<ApiResponse<Planet>>()
+         .subscribe(this.planets.set);
+     }
 
-      create(planet: PlanetCreate): void {
-        this.#planetsService.add<PlanetCreate, Planet>().subscribe();
-      }
+     create(planet: PlanetCreate): void {
+       this.#planetsService.add<PlanetCreate, Planet>(planet).subscribe();
+     }
 
-      update(id: number, planet: PlanetUpdate): void {      
-        this.#planetsService.update<PlanetUpdate, Planet>(id, planet).subscribe();
-      }
+     update(id: number, planet: PlanetUpdate): void {
+       this.#planetsService
+         .update<PlanetUpdate, Planet>(id, planet)
+         .subscribe();
+     }
 
-      delete(id: number): void {
-        this.#planetsService.delete<Planet>(id).subscribe();
-      }
-    }
-    ```
+     delete(id: number): void {
+       this.#planetsService.delete<Planet>(id).subscribe();
+     }
+   }
+   ```
 
 ## Default HttpClient request options
 
