@@ -1,0 +1,32 @@
+name: 📜 Documentation
+description: Documentation improvements or additions.
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Is there an issue for this?
+      description: Please search in the issues tab to verify if there is already an issue for the feature being requested.
+      options:
+        - label: I have searched in the existing issues.
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the problem you are solving
+      placeholder: Consider adding any link, reference, or file that provides more context.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Do you want to work on this?
+      options:
+        - Yes 🚀
+        - No 🦥
+    validations:
+      required: true
+

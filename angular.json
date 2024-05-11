@@ -3,44 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-generic-rest-service": {
+    "ngx-grs": {
       "projectType": "library",
-      "root": "projects/ngx-generic-rest-service",
-      "sourceRoot": "projects/ngx-generic-rest-service/src",
+      "root": "projects/ngx-grs",
+      "sourceRoot": "projects/ngx-grs/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-generic-rest-service/tsconfig.lib.json",
-            "project": "projects/ngx-generic-rest-service/ng-package.json"
+            "project": "projects/ngx-grs/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-generic-rest-service/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-grs/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-grs/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ngx-generic-rest-service/tsconfig.spec.json"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-generic-rest-service/tsconfig.lib.json",
-              "projects/ngx-generic-rest-service/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "tsConfig": "projects/ngx-grs/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }
       }
     }
-  },
-  "defaultProject": "ngx-generic-rest-service"
+  }
 }

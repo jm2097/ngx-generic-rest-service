@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ngx-generic-rest-service
+ * Public API Surface of ngx-grs
  */
 
 export * from './lib/ngx-generic-rest.service';

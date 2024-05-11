@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # to create a release (changesets/action)
+      pull-requests: write # to create a pull-request (changesets/action)
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+        env:
+          SKIP_POSTINSTALL: 1
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Test
+        run: bun run test:coverage
+
+      - name: Create release pull-request
+        if: github.event_name == 'push' && github.workflow == 'CI'
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: bun run ci:version
+          publish: bun run ci:release
+          title: '[Release]: changesets 📦'
+          commit: '📦 Version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 import { extractRequestOptions } from './ngx-generic-rest.utils';
-import { TestEntity, TestService } from './test-setup';
+import { type TestEntity, TestService } from './test-setup';
 
 describe('NgxGenericRestService', () => {
   describe('config', () => {
@@ -413,9 +413,7 @@ describe('NgxGenericRestService', () => {
         const headers = new HttpHeaders()
           .set('x-foo', 'foo')
           .set('x-bar', 'bar');
-        testService
-          .add<TestEntity>(dummyEntity, { headers })
-          .subscribe();
+        testService.add<TestEntity>(dummyEntity, { headers }).subscribe();
 
         const request = httpMock.expectOne(testService.url);
         expect(request.request.headers.get('x-foo')).toBe('foo');
@@ -429,9 +427,7 @@ describe('NgxGenericRestService', () => {
       (testService: TestService, httpMock: HttpTestingController) => {
         const dummyEntity: TestEntity = { foo: 'foo', bar: 999 };
         const params = new HttpParams().set('foo', 'foo').set('bar', 'bar');
-        testService
-          .add<TestEntity>(dummyEntity, { params })
-          .subscribe();
+        testService.add<TestEntity>(dummyEntity, { params }).subscribe();
 
         const request = httpMock.expectOne(
           (req) => req.url === testService.url
@@ -664,9 +660,7 @@ describe('NgxGenericRestService', () => {
         const headers = new HttpHeaders()
           .set('x-foo', 'foo')
           .set('x-bar', 'bar');
-        testService
-          .delete<TestEntity>(dummyId, { headers })
-          .subscribe();
+        testService.delete<TestEntity>(dummyId, { headers }).subscribe();
 
         const request = httpMock.expectOne(`${testService.url}/${dummyId}`);
         expect(request.request.headers.get('x-foo')).toBe('foo');
@@ -680,9 +674,7 @@ describe('NgxGenericRestService', () => {
       (testService: TestService, httpMock: HttpTestingController) => {
         const dummyId = 1;
         const params = new HttpParams().set('foo', 'foo').set('bar', 'bar');
-        testService
-          .delete<TestEntity>(dummyId, { params })
-          .subscribe();
+        testService.delete<TestEntity>(dummyId, { params }).subscribe();
 
         const request = httpMock.expectOne(
           (req) => req.url === `${testService.url}/${dummyId}`

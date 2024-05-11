@@ -1,8 +1,8 @@
-# Ngx-generic-rest-service
+# ngx-grs
 
 [![NPM downloads](https://img.shields.io/npm/dt/ngx-grs.svg?style=flat-square)](https://www.npmjs.com/package/ngx-grs)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/juanmesa2097/ngx-generic-rest-service/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/juanmesa2097/ngx-generic-rest-service/blob/main/CONTRIBUTING.md)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/juanmesa2097/ngx-grs/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/juanmesa2097/ngx-grs/blob/main/CONTRIBUTING.md)
 
 ## Installation
 
@@ -25,11 +25,14 @@ yarn add ngx-grs
    ```
 
 2. Extend Angular service from `NgxGenericRestService`:
+
    ```ts
    @Injectable({ providedIn: "root" })
    export class TasksService extends NgxGenericRestService {}
    ```
+
 3. Call the constructor of the `NgxGenericRestService` class and provide the `baseUrl` and `resourceName`:
+
    ```ts
    @Injectable({ providedIn: "root" })
    export class TasksService extends NgxGenericRestService {
@@ -41,7 +44,7 @@ yarn add ngx-grs
        // endpoint: https://example.com/api/tasks
      }
    }
-   ```   
+   ```
 
 ## Default HttpClient request options
 
