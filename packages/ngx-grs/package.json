@@ -3,6 +3,9 @@
   "version": "0.1.1",
   "description": "Generic REST service for Angular",
   "author": "jm2097",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/juanmesa2097/ngx-generic-rest-service.git"

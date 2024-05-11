@@ -9,10 +9,10 @@
     "lint": "biome lint --apply .",
     "format": "biome format --write . && prettier --write 'src/**/*.svelte'",
     "ci:version": "changeset version && git add --all",
-    "ci:release": "changeset tag"
+    "ci:release": "changeset tag && changeset publish"
   },
   "workspaces": [
-    "projects/*"
+    "packages/*"
   ],
   "dependencies": {
     "@angular/animations": "^17.3.0",
