@@ -5,9 +5,8 @@
 	"author": "jm2097",
 	"publishConfig": {
 		"access": "public",
-		"directory": "./dist"
+		"directory": "dist"
 	},
-	"files": ["./dist"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/juanmesa2097/ngx-generic-rest-service.git"
@@ -16,13 +15,7 @@
 		"url": "https://github.com/juanmesa2097/ngx-generic-rest-service/issues"
 	},
 	"homepage": "https://github.com/juanmesa2097/ngx-generic-rest-service",
-	"keywords": [
-		"angular",
-		"service",
-		"restful",
-		"rest",
-		"api"
-	],
+	"keywords": ["angular", "service", "restful", "rest", "api"],
 	"license": "MIT",
 	"peerDependencies": {
 		"@angular/common": "^17.3.0",

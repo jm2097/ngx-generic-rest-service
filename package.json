@@ -9,7 +9,7 @@
 		"lint": "biome lint --apply .",
 		"format": "biome format --write .",
 		"ci:version": "changeset version && git add --all",
-		"ci:release": "changeset tag && changeset publish"
+		"ci:release": "changeset tag && bun run build && changeset publish"
 	},
 	"workspaces": ["packages/*"],
 	"dependencies": {
