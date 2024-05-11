@@ -40,7 +40,7 @@ jobs:
       - name: Test
         run: bun run test
 
-      - name: Create release pull-request
+      - name: Create release pull-request or publish packages
         if: github.event_name == 'push' && github.workflow == 'CI'
         id: changesets
         uses: changesets/action@v1
