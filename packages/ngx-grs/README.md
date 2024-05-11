@@ -46,7 +46,7 @@ bun add ngx-grs
    }
    ```
 
-3. Use the service
+3. Use the service somewhere in your code:
 
     ```ts
     type ApiResponse<T> =
